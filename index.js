@@ -12,13 +12,6 @@ const app = express();
 app.use(express.json());
 
 
-app.get('/', (req, res) =>{
-
-    res.contentType("application/html")
-    res.status(200).send("<h3>Home page</h3>")
-
-})
-
 app.get('/users', async (req, res) =>{
 
     try{
@@ -32,6 +25,18 @@ app.get('/users', async (req, res) =>{
 
     }
 
+
+})
+
+app.get('/users/:id', async (req, res) => {
+
+    try{
+        const id = req.params.id;
+        const user = await UserModel.findById(id);
+        return res.status(200).send(user);
+    } catch ( error ){
+
+    }
 
 })
 
