@@ -2,14 +2,24 @@ const express = require('express');
 const UserModel = require('./src/models/user.model')
 
 const dotenv = require('dotenv');
-const connectToDatabase = require('./src/database/connect')
+const connectToDatabase = require('./src/database/connect');
+const { json } = require('express/lib/response');
 
 dotenv.config();
 
 connectToDatabase();
 
 const app = express();
+
 app.use(express.json());
+
+
+app.use((req, res, next) =>{ // MIDDLEWARE (função a ser executada antes de qualquer requisição.)
+
+    console.log(`Information: Used method '${req.method}' in your project.`);
+    next();
+
+}); 
 
 
 app.get('/users', async (req, res) =>{
@@ -35,7 +45,7 @@ app.get('/users/:id', async (req, res) => {
         const user = await UserModel.findById(id);
         return res.status(200).send(user);
     } catch ( error ){
-
+        res.status(500).send(error.message);
     }
 
 })
