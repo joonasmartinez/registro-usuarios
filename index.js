@@ -1,5 +1,6 @@
 const express = require('express');
 const UserModel = require('./src/models/user.model')
+const path = require('path');
 
 const dotenv = require('dotenv');
 const connectToDatabase = require('./src/database/connect');
@@ -21,13 +22,23 @@ app.use((req, res, next) =>{ // MIDDLEWARE (função a ser executada antes de qu
 
 }); 
 
+app.get('/', (req, res) =>{
+
+    try {
+        res.redirect(200, "http://localhost:3030/")
+    } catch (error) {
+        res.status(500).send("Erro: "+error.message)
+    }
+
+})
+
 
 app.get('/users', async (req, res) =>{
 
     try{
         
         const user = await UserModel.find()
-        res.status(200).json(user);
+        res.status(200).json(user)
 
     } catch(error){
 
