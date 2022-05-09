@@ -7,7 +7,7 @@ const connectToDatabase = async () => {
             return console.log("Error on connect: ",error)
         }
 
-        return console.log("Connection sucessfull!");
+        return console.log("Connection to database sucessfull!");
 
     })
 
