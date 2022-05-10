@@ -1,10 +1,11 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const UserModel = require('./src/models/user.model')
 const path = require('path');
 
 const dotenv = require('dotenv');
 const connectToDatabase = require('./src/database/connect');
-const { json } = require('express/lib/response');
+//const { json } = require('express/lib/response');
 
 dotenv.config();
 
@@ -14,25 +15,30 @@ const app = express();
 
 app.use(express.json());
 
-// app.use((req, res, next) => {
-//     res.header("Access-Control-Allow-Origin", "*")
-//     next();
-//   })
-app.use((req, res, next) =>{ // MIDDLEWARE (função a ser executada antes de qualquer requisição.)
+//app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
 
-    console.log(`Information: Used method '${req.method}' in your project.`);
-    if(req.method == "POST"){
-        console.log(`Information Body: 
-        ==== INNIT BODY =====
-
-        'OBJETO: ${req.body}'
-
-        ==== ENDS BODY =====.`);
-    }
-    
+app.use((req, res, next) => {
+    const {user, saldo} = req.body
+    console.log({user, saldo})
+    res.header("Access-Control-Allow-Origin", "*")
     next();
+  })
+// app.use((req, res, next) =>{ // MIDDLEWARE (função a ser executada antes de qualquer requisição.)
 
-}); 
+//     console.log(`Information: Used method '${req.method}' in your project.`);
+//     if(req.method == "POST"){
+//         console.log(`Information Body: 
+//         ==== INNIT BODY =====
+
+//         'OBJETO: ${JSON.stringify(req.body)}'
+
+//         ==== ENDS BODY =====.`);
+//     }
+    
+//     next();
+
+// }); 
 
  
 
@@ -79,9 +85,7 @@ app.get('/users/:id', async (req, res) => {
 
 app.post('/users', async (req, res) =>{
 
-    res.header("Access-Control-Allow-Origin", "*")
     try{
-
         
         const user = await UserModel.create(req.body);
         res.status(201).json(user);

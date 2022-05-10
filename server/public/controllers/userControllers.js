@@ -52,25 +52,24 @@ class Controller{
     async pushUser(name, saldo){
 
         let user = {
-            user:name,
-            saldo:saldo
+            user: name,
+            saldo: saldo
         };
-        let userfy = JSON.stringify(user)
-        console.log("Arquivo gerado:"+userfy);
-
-        let option =  {
-            method: 'POST',
-            mode:'no-cors',
-            body: userfy,
-            headers:{
-                'Content-Type':'application/json'
-            }
-        }
+        
+        console.log("Arquivo gerado:"+JSON.stringify(user));  
 
         try {
 
-            let apli = await fetch("http://localhost:3000/users", option).then(res => res.json());
-            console.log(apli);
+            await fetch('http://localhost:3000/users', {
+                method: 'POST',
+                mode:'no-cors',
+                headers:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
+                
+            })//.then(res => res.json());
             
         } catch (error) {
             
