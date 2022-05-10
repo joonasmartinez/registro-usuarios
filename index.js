@@ -14,18 +14,27 @@ const app = express();
 
 app.use(express.json());
 
-
+// app.use((req, res, next) => {
+//     res.header("Access-Control-Allow-Origin", "*")
+//     next();
+//   })
 app.use((req, res, next) =>{ // MIDDLEWARE (função a ser executada antes de qualquer requisição.)
 
     console.log(`Information: Used method '${req.method}' in your project.`);
+    if(req.method == "POST"){
+        console.log(`Information Body: 
+        ==== INNIT BODY =====
+
+        'OBJETO: ${req.body}'
+
+        ==== ENDS BODY =====.`);
+    }
+    
     next();
 
 }); 
 
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*")
-    next();
-  }) 
+ 
 
 
 app.get('/', (req, res) =>{
@@ -70,12 +79,11 @@ app.get('/users/:id', async (req, res) => {
 
 app.post('/users', async (req, res) =>{
 
+    res.header("Access-Control-Allow-Origin", "*")
     try{
 
-        res.setHeader("Content-Type","application/json")
-
-        const user = await UserModel.create(req.body)
-
+        
+        const user = await UserModel.create(req.body);
         res.status(201).json(user);
 
     } catch(error){
