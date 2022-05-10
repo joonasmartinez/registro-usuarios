@@ -22,6 +22,12 @@ app.use((req, res, next) =>{ // MIDDLEWARE (função a ser executada antes de qu
 
 }); 
 
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*")
+    next();
+  }) 
+
+
 app.get('/', (req, res) =>{
 
     try {
@@ -34,6 +40,7 @@ app.get('/', (req, res) =>{
 
 
 app.get('/users', async (req, res) =>{
+
 
     try{
         
@@ -64,6 +71,8 @@ app.get('/users/:id', async (req, res) => {
 app.post('/users', async (req, res) =>{
 
     try{
+
+        res.setHeader("Content-Type","application/json")
 
         const user = await UserModel.create(req.body)
 
