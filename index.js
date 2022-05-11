@@ -14,26 +14,23 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use((req, res, next) => {
+app.use((req, res, next) =>{ // MIDDLEWARE (função a ser executada antes de qualquer requisição.)
+
+    console.log(`Information: Used method '${req.method}' in your project.`);
+    if(req.method == "POST"){
+        console.log(`Information Body: 
+        ==== INNIT BODY =====
+
+        'Novo cadastro: 
+        user: ${JSON.stringify(req.body.user)}
+        saldo: ${JSON.stringify(req.body.saldo)}'
+
+        ==== ENDS BODY =====.`);
+    }
     
-    console.log(req.body)
     next();
-  })
-// app.use((req, res, next) =>{ // MIDDLEWARE (função a ser executada antes de qualquer requisição.)
 
-//     console.log(`Information: Used method '${req.method}' in your project.`);
-//     if(req.method == "POST"){
-//         console.log(`Information Body: 
-//         ==== INNIT BODY =====
-
-//         'OBJETO: ${JSON.stringify(req.body)}'
-
-//         ==== ENDS BODY =====.`);
-//     }
-    
-//     next();
-
-// }); 
+}); 
 
  
 
