@@ -20,20 +20,24 @@
       </div>
 
       <div class="mt-5">
+        <form id="formCadastro" enctype="application/x-www-form-urlencoded">
 
-        <div class="input-group flex-nowrap">
-          <span class="input-group-text" id="addon-wrapping">Username</span>
-          <input id="input-username" type="text" class="form-control" aria-label="Username" aria-describedby="addon-wrapping">
-        </div>
+          <div class="input-group flex-nowrap">
+            <span class="input-group-text" id="addon-wrapping">Username</span>
+            <input id="input-username" type="text" name="user" class="form-control" aria-label="Username" aria-describedby="addon-wrapping">
+          </div>
+  
+          <div class="input-group flex-nowrap mt-2">
+            <span class="input-group-text" id="addon-wrapping">Saldo R$</span>
+            <input id="input-saldo" type="text" name="saldo" class="form-control" placeholder="1600,00" aria-label="Username" aria-describedby="addon-wrapping">
+          </div>
+  
+          <div class="d-grid gap-2 mt-5">
+            <button id="btn-exec" class="btn btn-primary" type="submit">Cadastrar</button>
+          </div>
 
-        <div class="input-group flex-nowrap mt-2">
-          <span class="input-group-text" id="addon-wrapping">Saldo R$</span>
-          <input id="input-saldo" type="text" class="form-control" placeholder="1600,00" aria-label="Username" aria-describedby="addon-wrapping">
-        </div>
-
-        <div class="d-grid gap-2 mt-5">
-          <button id="btn-exec" class="btn btn-primary" type="button">Cadastrar</button>
-        </div>
+        </form>
+        
 
         <div class="d-grid gap-2 mt-1">
           <button id="btn-users" class="btn btn-dark" type="button">Exibir usuários</button>

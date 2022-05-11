@@ -1,8 +1,6 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const cors = require('cors');
 const UserModel = require('./src/models/user.model')
-const path = require('path');
-
 const dotenv = require('dotenv');
 const connectToDatabase = require('./src/database/connect');
 //const { json } = require('express/lib/response');
@@ -14,14 +12,11 @@ connectToDatabase();
 const app = express();
 
 app.use(express.json());
-
-//app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(cors());
 
 app.use((req, res, next) => {
-    const {user, saldo} = req.body
-    console.log({user, saldo})
-    res.header("Access-Control-Allow-Origin", "*")
+    
+    console.log(req.body)
     next();
   })
 // app.use((req, res, next) =>{ // MIDDLEWARE (função a ser executada antes de qualquer requisição.)

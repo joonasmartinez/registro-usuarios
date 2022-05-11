@@ -9,7 +9,8 @@ class Controller{
     init(){
 
         // Adicionar evento de click.
-        let btnExec = document.getElementById("btn-exec").addEventListener("click", ()=>{
+        let btnExec = document.getElementById("btn-exec").addEventListener("click", (e)=>{
+            e.preventDefault();
             this.validationUserAdd();
         })
 
@@ -43,7 +44,6 @@ class Controller{
     async showUsers(){
         console.log("Mostrar usuários.")
         let users = await fetch("http://localhost:3000/users/").then((data) => data.json());
-        let userP = JSON.stringify(users)
         users.forEach((item, index)=>{
             console.log(`${index} - NOME: ${users[index]['user']} || SALDO: R$ ${users[index]['saldo']}. ID(${users[index]['_id']})`)
         })
@@ -55,21 +55,17 @@ class Controller{
             user: name,
             saldo: saldo
         };
-        
-        console.log("Arquivo gerado:"+JSON.stringify(user));  
 
         try {
 
-            await fetch('http://localhost:3000/users', {
+            const response = await fetch('http://localhost:3000/users', {
                 method: 'POST',
-                mode:'no-cors',
                 headers:{
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Content-Type':'application/json'
                 },
                 body: JSON.stringify(user)
                 
-            })//.then(res => res.json());
+            }).then(res => res.json()).then(res => console.log(res));
             
         } catch (error) {
             
