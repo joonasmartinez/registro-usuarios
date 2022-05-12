@@ -33,6 +33,10 @@ class Controller{
             console.log("Preencha os campos.")
         }
 
+        document.getElementById("input-username").value = '';
+        document.getElementById("input-saldo").value = '';
+        document.getElementById("input-username").focus();
+
     }
 
     showTable(){
@@ -70,6 +74,9 @@ class Controller{
                 <td>${users[index]._id}</td>
                 </tr>
             `
+            tr.addEventListener('dblclick', (e)=>{
+                this.deleteUser(users[index]._id)
+            })
             table.appendChild(tr);
         })
     }
@@ -95,5 +102,17 @@ class Controller{
         } catch (error) {
             
         }
+    }
+
+    async deleteUser(user){
+
+        if(confirm(`Deseja deletar este usuário?
+        ${user}`)){
+            await fetch(`http://localhost:3000/users/${user}`, {
+                method: 'DELETE',
+            })
+        }
+        this.showUsers();
+        this.showTable();
     }
 }
