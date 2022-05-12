@@ -37,7 +37,7 @@ class Controller{
     validationUserAdd(){
 
         let usernameField = document.getElementById("input-username").value;
-        let saldoField = document.getElementById("input-saldo").value;
+        let saldoField = document.getElementById("input-saldo").value.replace('R$', '');
 
         if(usernameField){
             if(!saldoField) saldoField = "0";
@@ -116,9 +116,7 @@ class Controller{
         } catch (error) {
             
         }
-
         this.showUsers();
-        this.showTable();
     }
 
     async deleteUser(user){
