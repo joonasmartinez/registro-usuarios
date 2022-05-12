@@ -75,7 +75,7 @@ class Controller{
                 </tr>
             `
             tr.addEventListener('dblclick', (e)=>{
-                this.deleteUser(users[index]._id)
+                this.deleteUser(users[index])
             })
             table.appendChild(tr);
         })
@@ -106,9 +106,8 @@ class Controller{
 
     async deleteUser(user){
 
-        if(confirm(`Deseja deletar este usuário?
-        ${user}`)){
-            await fetch(`http://localhost:3000/users/${user}`, {
+        if(confirm(`Deseja deletar '${user.user}'?`)){
+            await fetch(`http://localhost:3000/users/${user._id}`, {
                 method: 'DELETE',
             })
         }
