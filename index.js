@@ -37,11 +37,7 @@ app.use((req, res, next) =>{ // MIDDLEWARE (função a ser executada antes de qu
 
 app.get('/', (req, res) =>{
 
-    try {
-        res.redirect(200, "http://localhost:3030/")
-    } catch (error) {
-        res.status(500).send("Erro: "+error.message)
-    }
+    res.send("Welcome to API RESTful");
 
 })
 
@@ -120,4 +116,4 @@ app.delete('/users/:id', async (req, res) =>{
     }
 })
 
-app.listen(3000, console.log("Server is running (3000)..."));
+app.listen(3000, console.log("Server back end is running (3000)..."));

@@ -102,6 +102,9 @@ class Controller{
         } catch (error) {
             
         }
+
+        this.showUsers();
+        this.showTable();
     }
 
     async deleteUser(user){
