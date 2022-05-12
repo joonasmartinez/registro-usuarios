@@ -70,7 +70,7 @@ class Controller{
             <tr >
                 <th scope="row" >${index+1}</th>
                 <td>${users[index].user}</td>
-                <td>${users[index].saldo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</td>
+                <td>${parseFloat(users[index].saldo).toLocaleString('pt',{style: 'currency', currency: 'BRL'})}</td>
                 <td>${users[index]._id}</td>
                 </tr>
             `
