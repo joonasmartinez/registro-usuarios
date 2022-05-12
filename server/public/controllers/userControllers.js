@@ -20,12 +20,6 @@ class Controller{
 
     }
 
-    requestedMethod(){
-
-
-
-    }
-
     validationUserAdd(){
 
         let usernameField = document.getElementById("input-username").value;
@@ -41,11 +35,42 @@ class Controller{
 
     }
 
+    showTable(){
+
+        let table = document.getElementById('table-users');
+        let btn = document.getElementById('btn-users');
+        table.hidden = !table.hidden;
+
+        if(!table.hidden) {
+            btn.innerText = "Ocultar Usuários"
+        } else{
+            btn.innerText = "Exibir Usuários"
+        }
+
+    }
+
     async showUsers(){
-        console.log("Mostrar usuários.")
         let users = await fetch("http://localhost:3000/users/").then((data) => data.json());
+
+        this.showTable();
+
+        let table = document.getElementById('table-users-info');
+
+        table.innerHTML = ``;
+
+        
+
         users.forEach((item, index)=>{
-            console.log(`${index} - NOME: ${users[index]['user']} || SALDO: R$ ${users[index]['saldo']}. ID(${users[index]['_id']})`)
+            let tr = document.createElement('tr');
+            tr.innerHTML = `
+            <tr >
+                <th scope="row" >${index+1}</th>
+                <td>${users[index].user}</td>
+                <td>${users[index].saldo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</td>
+                <td>${users[index]._id}</td>
+                </tr>
+            `
+            table.appendChild(tr);
         })
     }
 

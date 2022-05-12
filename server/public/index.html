@@ -11,43 +11,104 @@
   </head>
   <body>
 
-    <div class="container-sm">
-
-      <div class="card mt-3 ">
-        <div class="card-body m-auto">
-          CADASTRO DE USUÁRIO
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">SEU CADASTRO</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
         </div>
       </div>
+    </nav>
+    
+    
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <!-- 1 of 3 -->
+        </div>
+        <div class="col-8">
+          <!-- 2 of 3 (wider) -->
 
-      <div class="mt-5">
-        <form id="formCadastro" enctype="application/x-www-form-urlencoded">
-
-          <div class="input-group flex-nowrap">
-            <span class="input-group-text" id="addon-wrapping">Username</span>
-            <input id="input-username" type="text" name="user" class="form-control" aria-label="Username" aria-describedby="addon-wrapping">
+          <div class="card mt-3 ">
+            <div class="card-body m-auto">
+              CADASTRO DE USUÁRIO
+            </div>
           </div>
-  
-          <div class="input-group flex-nowrap mt-2">
-            <span class="input-group-text" id="addon-wrapping">Saldo R$</span>
-            <input id="input-saldo" type="text" name="saldo" class="form-control" placeholder="1600,00" aria-label="Username" aria-describedby="addon-wrapping">
-          </div>
-  
-          <div class="d-grid gap-2 mt-5">
-            <button id="btn-exec" class="btn btn-primary" type="submit">Cadastrar</button>
-          </div>
-
-        </form>
+    
+          <div class="mt-5">
+              <form id="formCadastro" enctype="application/x-www-form-urlencoded">
+    
+                <div class="input-group flex-nowrap">
+                  <span class="input-group-text" id="addon-wrapping">Username</span>
+                  <input id="input-username" type="text" name="user" class="form-control" aria-label="Username" aria-describedby="addon-wrapping">
+                </div>
         
+                <div class="input-group flex-nowrap mt-2">
+                  <span class="input-group-text" id="addon-wrapping">Saldo R$</span>
+                  <input id="input-saldo" type="text" name="saldo" class="form-control" placeholder="1600,00" aria-label="Username" aria-describedby="addon-wrapping">
+                </div>
+        
+                <div class="d-grid gap-2 mt-5">
+                  <button id="btn-exec" class="btn btn-primary" type="submit">Cadastrar</button>
+                </div>
+    
+              </form>
+            
+              <div class="d-grid gap-2 mt-1">
+                <button id="btn-users" class="btn btn-dark" type="button">Exibir usuários</button>
+              </div>
+    
+              <table class="table mt-5 table table-hover" id="table-users" hidden="true">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Saldo</th>
+                    <th scope="col">ID</th>
+                  </tr>
+                </thead>
+                <tbody id="table-users-info">
+                  
+                </tbody>
+              </table>
+             
+    
+          </div>
 
-        <div class="d-grid gap-2 mt-1">
-          <button id="btn-users" class="btn btn-dark" type="button">Exibir usuários</button>
+          
+
+
         </div>
-
+        <div class="col">
+          <!-- 3 of 3 -->
+        </div>
       </div>
+<!--       
+      <div class="row">
+        <div class="col">
+          1 of 3
+        </div>
+        <div class="col-5">
+          2 of 3 (wider)
 
+          
+          
+          
+        </div>
+        <div class="col">
+          3 of 3
+        </div>
+      </div> 
+    -->
+
+      
 
     </div>
-    <!-- Optional JavaScript; choose one of the two! -->
+    
+    </div>
+            <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
