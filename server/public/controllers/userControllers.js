@@ -7,7 +7,7 @@ class Controller{
     }
 
     init(){
-
+        this.addConverter()
         // Adicionar evento de click.
         let btnExec = document.getElementById("btn-exec").addEventListener("click", (e)=>{
             e.preventDefault();
@@ -16,6 +16,20 @@ class Controller{
 
         let btnUser = document.getElementById("btn-users").addEventListener("click", ()=>{
             this.showUsers();
+        })
+
+    }
+
+    addConverter(){
+
+        let inputValue = document.getElementById('input-saldo');
+        inputValue.addEventListener('focus', (e)=>{
+            console.log(inputValue.value)
+            inputValue.value = inputValue.value.replace('R$','')
+        })
+        inputValue.addEventListener('blur', (e)=>{
+            inputValue.value = inputValue.value.replace(',','.')
+            inputValue.value = parseFloat(inputValue.value).toLocaleString('pt',{style: 'currency', currency: 'BRL'}).replace("R$ ","")
         })
 
     }
