@@ -2,7 +2,6 @@ class Controller{
 
     constructor(){
       
-        
         this.init()
     }
 
@@ -24,12 +23,12 @@ class Controller{
 
         let inputValue = document.getElementById('input-saldo');
         inputValue.addEventListener('focus', (e)=>{
-            console.log(inputValue.value)
+            // console.log(inputValue.value)
             inputValue.value = inputValue.value.replace('R$','')
         })
         inputValue.addEventListener('blur', (e)=>{
-            inputValue.value = inputValue.value.replace(',','.')
-            inputValue.value = parseFloat(inputValue.value).toLocaleString('pt',{style: 'currency', currency: 'BRL'}).replace("R$ ","")
+            inputValue.value = inputValue.value.replace(',','.');
+            inputValue.value = parseFloat(inputValue.value).toLocaleString('pt',{style: 'currency', currency: 'BRL'})
         })
 
     }
@@ -37,21 +36,22 @@ class Controller{
     validationUserAdd(){
 
         let usernameField = document.getElementById("input-username").value;
-        let saldoField = document.getElementById("input-saldo").value.replace('R$', '');
+        let saldoField = document.getElementById("input-saldo").value.replace('R$','').replaceAll('.','').replace(',','.');
 
         if(usernameField){
             if(!saldoField) saldoField = "0";
-            console.log("Cadastrando "+usernameField,"Saldo:", saldoField)
+            //console.log("Cadastrando "+usernameField,"Saldo:", parseFloat(saldoField).toLocaleString('pt',{style: 'currency', currency: 'BRL'}))
             this.pushUser(usernameField, saldoField)
         }else{
-            console.log("Preencha os campos.")
+            console.error("Preencha os campos.")
         }
 
         document.getElementById("input-username").value = '';
-        document.getElementById("input-saldo").value = '';
+        document.getElementById("input-saldo").value = '0,00';
         document.getElementById("input-username").focus();
 
     }
+    
 
     showTable(){
 
@@ -67,16 +67,11 @@ class Controller{
 
     }
 
-    async showUsers(){
-        let users = await fetch("http://localhost:3000/users/").then((data) => data.json());
-
-        this.showTable();
+    loadTable(users){
 
         let table = document.getElementById('table-users-info');
 
         table.innerHTML = ``;
-
-        
 
         users.forEach((item, index)=>{
             let tr = document.createElement('tr');
@@ -84,7 +79,7 @@ class Controller{
             <tr >
                 <th scope="row" >${index+1}</th>
                 <td>${users[index].user}</td>
-                <td>${parseFloat(users[index].saldo).toLocaleString('pt',{style: 'currency', currency: 'BRL'})}</td>
+                <td>${parseFloat(users[index].saldo).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</td>
                 <td>${users[index]._id}</td>
                 </tr>
             `
@@ -93,6 +88,28 @@ class Controller{
             })
             table.appendChild(tr);
         })
+
+    }
+
+    async loadUser(){
+
+        let users = await fetch("http://localhost:3000/users/").then((data) => data.json());
+        this.loadTable(users);
+        return users;
+    }
+
+    async showUsers(){
+        
+        let users = await this.loadUser();
+
+        
+        if(users.length == 0) return alert("Sem registros");
+
+        this.showTable();
+
+        
+
+
     }
 
     async pushUser(name, saldo){
@@ -111,12 +128,13 @@ class Controller{
                 },
                 body: JSON.stringify(user)
                 
-            }).then(res => res.json()).then(res => console.log(res));
+            }).then(res => res.json())//.then(res => console.log(res));
             
         } catch (error) {
             
         }
-        this.showUsers();
+
+        this.loadUser()
     }
 
     async deleteUser(user){
